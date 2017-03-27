@@ -4,9 +4,9 @@
 
 class Datos extends Connections{
 
-	public function ingreso($datos,$tabla){
+	public function ingreso($datos){
 		
-		$query  = "Select * from $tabla where user=:user and pass=:pass";
+		$query  = "Select * from users where User=:user and Pass=:pass";
 		$stmt = Connections::connect()->prepare($query);
 		$stmt->bindParam(':user',$datos['user'], PDO::PARAM_STR);
 		$stmt->bindParam(':pass',$datos['pass'], PDO::PARAM_STR);
