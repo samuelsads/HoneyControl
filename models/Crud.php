@@ -15,5 +15,22 @@ class Datos extends Connections{
 		$stmt->close();
 
 	}
+
+	public function findPassById($id){
+		$query  = "SELECT * from Users where idUsers=:id";
+		$stmt = Connections::connect()->prepare($query);
+		$stmt->bindParam(':id',$id,PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetch();
+		$stmt->close();
+	}
+
+	public function findAllMyClients(){
+		$query  = "SELECT * FROM Client";
+		$stmt = Connections::connect()->prepare($query);
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+	}
 }
 

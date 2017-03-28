@@ -11,7 +11,6 @@ if($_SERVER['REQUEST_METHOD']==='POST') {
 		$respuestac=$responde -> ingreso($usuario,$contra);
 		if($respuestac=='success'){
 			$respuestas=array('responde'=>true);
-
 			echo json_encode($respuestas);
 		}else{
 			$respuestas=array('responde'=>false);

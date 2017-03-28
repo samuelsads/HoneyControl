@@ -15,10 +15,27 @@ class controllers{
 						}
 					}
 				}
-/*
-	public function getPass(){
-		$encript = crypt('samuelsads',Constants::$key);
-		return $encript;
+
+	public function getPass($id){
+		$respuesta = Datos::findPassById($id);
+		if($respuesta){
+			return $respuesta['Pass'];
+		}else{
+			return false;
+		}
 	}	
-*/
+
+	public function getAllMyClient(){
+		$respuesta = Datos::findAllMyClients();
+		$content[] =  array();
+		if($respuesta){
+			foreach ($respuesta as $key) {
+				$content[]= array('id'=>$key['idClient'],'name'=>$key['Name']);
+			}
+			return $content;
+		}else{
+			return false;
+		}
+	}
+
 }

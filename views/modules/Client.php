@@ -2,5 +2,29 @@
 require_once "../../models/Crud.php";
 require_once "../../controllers/controllers.php";
 $responde  = new controllers();
-$respuestac=$responde -> getPass();
-echo $respuestac;
+
+if($_SERVER['REQUEST_METHOD']=='POST') {
+	if(isset($_REQUEST['id']) && isset($_REQUEST['pass'])){
+		$id =addslashes($_REQUEST['id']);
+		$contra = addslashes($_REQUEST['pass']);
+		if($contra == $responde ->getPass($id)){
+			$respuesta =$responde->getAllMyClient();
+				if($respuesta){
+					var_dump($respuesta);
+				}else{
+					echo 'error';
+				}
+		}else{
+			echo "incorrecto";
+		}
+		}else{
+			echo "error 1";
+		}
+	}else{
+		echo "error";
+	}
+	
+
+
+
+
