@@ -32,5 +32,13 @@ class Datos extends Connections{
 		return $stmt->fetchAll();
 		$stmt->close();
 	}
+
+	public function findAllMyProducts(){
+		$query  ="SELECT * FROM Product";
+		$stmt  = Connections::connect()->prepare($query);
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+	}
 }
 

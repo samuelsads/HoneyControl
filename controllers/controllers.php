@@ -27,10 +27,24 @@ class controllers{
 
 	public function getAllMyClient(){
 		$respuesta = Datos::findAllMyClients();
-		$content[] =  array();
+		$content =  array();
 		if($respuesta){
 			foreach ($respuesta as $key) {
 				$content[]= array('id'=>$key['idClient'],'name'=>$key['Name']);
+			}
+			return $content;
+		}else{
+			return false;
+		}
+	}
+
+
+	public function getAllMyProduct(){
+		$respuesta  = Datos::findAllMyProducts();
+		$content = array();
+		if($respuesta){
+			foreach ($respuesta as $key) {
+				$content[] = array('id'=>$key['idProduct'],'size'=>$key['Size'],'price'=>$key['Price']);
 			}
 			return $content;
 		}else{

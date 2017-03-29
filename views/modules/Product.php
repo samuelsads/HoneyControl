@@ -8,24 +8,16 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
 		$id =addslashes($_REQUEST['id']);
 		$contra = addslashes($_REQUEST['pass']);
 		if($contra == $responde ->getPass($id)){
-			$respuesta =$responde->getAllMyClient();
-				if($respuesta){
-					$respuesta = json_encode(array('respuesta'=>$respuesta,'success'=>true));
+			$respuesta =$responde->getAllMyProduct();
+			if($respuesta){
+				$respuesta = json_encode(array('respuesta'=>$respuesta,'success'=>true));
 					echo $respuesta;
-				}else{
-					echo 'error';
-				}
+			}else{
+				echo 'error 1';
+			}
 		}else{
-			echo "incorrecto";
+			echo 'contraseña incorrecta';
 		}
-		}else{
-			echo "error 1";
-		}
-	}else{
-		echo "error";
 	}
-	
-
-
-
+}
 
