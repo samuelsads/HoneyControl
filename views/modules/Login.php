@@ -9,11 +9,11 @@ if($_SERVER['REQUEST_METHOD']==='POST') {
 		$contra =addslashes($_REQUEST['pass']);
 		$responde  = new controllers();
 		$respuestac=$responde -> ingreso($usuario,$contra);
-		if($respuestac=='success'){
-			$respuestas=array('responde'=>true);
+		if($respuestac){
+			$respuestas=array('result'=>$respuestac,'responde'=>true);
 			echo json_encode($respuestas);
 		}else{
-			$respuestas=array('responde'=>false);
+			$respuestas=array('result'=>$respuestac,'responde'=>false);
 			echo json_encode($respuestas);
 		}
 		

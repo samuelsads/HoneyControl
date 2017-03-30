@@ -5,11 +5,13 @@ class controllers{
 
 	public function ingreso($user, $pass){
 				if(preg_match('/^[a-zA-Z0-9]+$/', $user) && preg_match('/^[a-zA-Z0-9]+$/', $pass)){
+						$content=array();
 						$encript = crypt($pass,Constants::$key);
 						$arr   = array('user'=>$user,'pass'=>$encript);
 						$respuesta = Datos::ingreso($arr);
-						if($respuesta['User']==$user && $respuesta['Pass']==$encript){
-							return "success";
+						if($respuesta['User']==$user && $respuesta['Pass']===$encript){
+							 $content[]= array('id'=>$respuesta['idUsers'],'pass'=>$respuesta['Pass']);
+							 return $content;
 						}else{
 							return "error";
 						}
