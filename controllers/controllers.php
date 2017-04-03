@@ -54,4 +54,15 @@ class controllers{
 		}
 	}
 
+	public function insertNewClient($name){
+		$respuesta = Datos::insertNewClient($name);
+		if($respuesta){
+			return true;
+		}else{
+			return false;
+		}
+		}
+
+	}
+
 }
