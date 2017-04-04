@@ -43,11 +43,22 @@ class Datos extends Connections{
 
 	public function insertNewClient($name){
 		$query  = "INSERT INTO Client(name) values(:name)";
-		$stmt = Connections::connect()->prepare($query);
-		$stmt->bindParam(':name',$name,PDO::PARAM_STR);
-		$stmt->execute();
-		return $stmt->lastInsertId();
-		$stmt->close();
+		$conn = Connections::connect();
+		$stmt = $conn->prepare($query);
+		try {
+			$conn->beginTransaction();
+			$stmt->bindParam(':name',$name,PDO::PARAM_STR);
+			$stmt->execute();
+			
+			print $conn->lastInsertId();
+			return $conn->lastInsertId();
+			
+			$stmt->close();
+			$conn->commit();
+		}catch(PDOException $e){
+			$conn->rollBack();
+		}
+		
 	}
 }
 

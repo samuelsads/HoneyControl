@@ -10,10 +10,10 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
 		if($contra == $responde ->getPass($id)){
 			$respuesta =$responde->insertNewClient($name);
 				if($respuesta){
-					$respuesta = json_encode('success'=>$respuesta);
+					$respuesta = json_encode('success');
 					echo $respuesta;
 				}else{
-					$respuesta = json_encode('success'=>$respuesta);
+					$respuesta = json_encode('error');
 					echo $respuesta;
 				}
 		}else{

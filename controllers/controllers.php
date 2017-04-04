@@ -61,7 +61,7 @@ class controllers{
 		}else{
 			return false;
 		}
-		}
+
 
 	}
 
