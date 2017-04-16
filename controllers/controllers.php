@@ -3,6 +3,25 @@ require_once "../../models/Constants.php";
 
 class controllers{
 
+	public function deleteProduct($id){
+		$respuesta  = Datos::deleteProductById($id);
+		if($respuesta){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public function insertNewProduct($size,$price){
+		$respuesta = Datos::insertNewProduct($size,$price);
+		if($respuesta){
+			return $respuesta;
+		}else{
+			return false;
+		}
+	}
+
+
 	public function ingreso($user, $pass){
 				if(preg_match('/^[a-zA-Z0-9]+$/', $user) && preg_match('/^[a-zA-Z0-9]+$/', $pass)){
 						$content=array();
@@ -54,14 +73,22 @@ class controllers{
 		}
 	}
 
-	public function insertNewClient($name){
-		$respuesta = Datos::insertNewClient($name);
+	public function insertNewClient($name,$father_surname,$mother_surname){
+		$respuesta = Datos::insertNewClient($name,$father_surname,$mother_surname);
+		if($respuesta){
+			return $respuesta;
+		}else{
+			return false;
+		}
+	}
+
+	public function deleteClient($id){
+		$respuesta  = Datos::deleteClientById($id);
 		if($respuesta){
 			return true;
 		}else{
 			return false;
 		}
-
 
 	}
 

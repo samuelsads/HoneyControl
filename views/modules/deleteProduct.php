@@ -3,16 +3,14 @@ require_once "../../models/Crud.php";
 require_once "../../controllers/controllers.php";
 $responde  = new controllers();
 if($_SERVER['REQUEST_METHOD']=='POST') {
-	if(isset($_REQUEST['id']) && isset($_REQUEST['pass'])  && isset($_REQUEST['name'])  && isset($_REQUEST['father_surname'])  && isset($_REQUEST['mother_surname'])){
+	if(isset($_REQUEST['id']) && isset($_REQUEST['pass'])  &&isset($_REQUEST['idProduct'])){
 		$id =addslashes($_REQUEST['id']);
 		$contra = addslashes($_REQUEST['pass']);
-		$name = addslashes($_REQUEST['name']);
-		$father_surname  = addslashes($_REQUEST['father_surname']);;
-		$mother_surname  = addslashes($_REQUEST['mother_surname']);;
+		$idProduct = addslashes($_REQUEST['idProduct']);
 		if($contra == $responde ->getPass($id)){
-			$respuesta =$responde->insertNewClient($name,$father_surname,$mother_surname);
+			$respuesta =$responde->deleteProduct($idProduct);
 				if($respuesta){
-					$content = array('id'=>$respuesta,'success'=>true);
+					$content = array('success'=>true);
 					$respuesta = json_encode($content);
 					echo $respuesta;
 				}else{

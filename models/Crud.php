@@ -4,6 +4,40 @@
 
 class Datos extends Connections{
 
+	public function deleteProductById($id){
+		$query = "DELETE FROM Product where idProduct=:id";
+		$conn = Connections::connect();
+		$stmt = $conn->prepare($query);
+		try{
+			$conn->beginTransaction();
+			$stmt->bindParam(':id',$id,PDO::PARAM_INT);
+			$contenido=$stmt->execute();
+			$conn->commit();
+			return $contenido;
+			$conn->close();
+		}catch(PDOException $e){
+			$conn->rollBack();
+		}
+	}
+
+	public function insertNewProduct($size,$price){
+		$query  = "INSERT INTO Product(size,price) values(:size,:price)";
+		$conn = Connections::connect();
+		$stmt = $conn->prepare($query);
+		try {
+			$conn->beginTransaction();
+			$stmt->bindParam(':size',$size,PDO::PARAM_STR);
+			$stmt->bindParam(':price',$price,PDO::PARAM_STR);;
+			$stmt->execute();
+			$contenido= $conn->lastInsertId();
+			$conn->commit();
+			return $contenido;
+			$conn->close();
+		}catch(PDOException $e){
+			$conn->rollBack();
+		}
+	}
+
 	public function ingreso($datos){
 		
 		$query  = "Select * from Users where User=:user and Pass=:pass";
@@ -26,7 +60,7 @@ class Datos extends Connections{
 	}
 
 	public function findAllMyClients(){
-		$query  = "SELECT * FROM Client";
+		$query  = 'SELECT idClient,concat(name," ",father_surname," ",mother_surname) as Name FROM Client order by idClient desc';
 		$stmt = Connections::connect()->prepare($query);
 		$stmt->execute();
 		return $stmt->fetchAll();
@@ -41,24 +75,39 @@ class Datos extends Connections{
 		$stmt->close();
 	}
 
-	public function insertNewClient($name){
-		$query  = "INSERT INTO Client(name) values(:name)";
+	public function insertNewClient($name,$father_surname,$mother_surname){
+		$query  = "INSERT INTO Client(name, father_surname, mother_surname) values(:name,:father_surname,:mother_surname)";
 		$conn = Connections::connect();
 		$stmt = $conn->prepare($query);
 		try {
 			$conn->beginTransaction();
 			$stmt->bindParam(':name',$name,PDO::PARAM_STR);
+			$stmt->bindParam(':father_surname',$father_surname,PDO::PARAM_STR);
+			$stmt->bindParam(':mother_surname',$mother_surname,PDO::PARAM_STR);
 			$stmt->execute();
-			
-			print $conn->lastInsertId();
-			return $conn->lastInsertId();
-			
-			$stmt->close();
+			$contenido= $conn->lastInsertId();
 			$conn->commit();
+			return $contenido;
+			$conn->close();
 		}catch(PDOException $e){
 			$conn->rollBack();
 		}
-		
+	}
+
+	public function deleteClientById($id){
+		$query = "DELETE FROM Client where idClient=:id";
+		$conn = Connections::connect();
+		$stmt = $conn->prepare($query);
+		try{
+			$conn->beginTransaction();
+			$stmt->bindParam(':id',$id,PDO::PARAM_INT);
+			$contenido=$stmt->execute();
+			$conn->commit();
+			return $contenido;
+			$conn->close();
+		}catch(PDOException $e){
+			$conn->rollBack();
+		}
 	}
 }
 
