@@ -4,6 +4,10 @@
 
 class Datos extends Connections{
 
+	public function insertWarehouse($amount){
+		$query = "INSERT INTO Warehouse()"
+	}
+
 	public function deleteProductById($id){
 		$query = "DELETE FROM Product where idProduct=:id";
 		$conn = Connections::connect();

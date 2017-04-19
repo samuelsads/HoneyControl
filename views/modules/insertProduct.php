@@ -3,14 +3,17 @@ require_once "../../models/Crud.php";
 require_once "../../controllers/controllers.php";
 $responde  = new controllers();
 if($_SERVER['REQUEST_METHOD']=='POST') {
-	if(isset($_REQUEST['id']) && isset($_REQUEST['pass']) && isset($_REQUEST['size'])  && isset($_REQUEST['price'])){
+	if(isset($_REQUEST['id']) && isset($_REQUEST['pass']) && isset($_REQUEST['size'])  && isset($_REQUEST['price']) && isset($_REQUEST['amount'])){
 		$id =addslashes($_REQUEST['id']);
 		$contra = addslashes($_REQUEST['pass']);
 		$size = addslashes($_REQUEST['size']);
 		$price  = addslashes($_REQUEST['price']);
+		$amount  = addslashes($_REQUEST['amount']);
+
 		if($contra == $responde ->getPass($id)){
 			$respuesta =$responde->insertNewProduct($size,$price);
 				if($respuesta){
+					$respuestaAmount = $responde->insertNewWarehouse($amount);
 					$content = array('id'=>$respuesta,'success'=>true);
 					$respuesta = json_encode($content);
 					echo $respuesta;
