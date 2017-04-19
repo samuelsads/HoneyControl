@@ -13,8 +13,8 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
 		if($contra == $responde ->getPass($id)){
 			$respuesta =$responde->insertNewProduct($size,$price);
 				if($respuesta){
-					$respuestaAmount = $responde->insertNewWarehouse($amount);
-					$content = array('id'=>$respuesta,'success'=>true);
+					$respuestaAmount = $responde->insertNewWarehouse($amount,$respuesta);
+					$content = array('id'=>$respuesta,'warehouse_id'=>$respuestaAmount,'success'=>true);
 					$respuesta = json_encode($content);
 					echo $respuesta;
 				}else{

@@ -1,12 +1,17 @@
 <?php 
 require_once "../../models/Constants.php";
+require_once "/logic.php";
 
 class controllers{
-	public function 
-	public function insertNewWarehouse($amount){
-		$respuesta = Datos::insertWarehouse($amount);
+	
+
+	public function insertNewWarehouse($amount,$product_id){
+		$logic  = new logic();
+		$date = $logic->getDate();
+		$respuesta = Datos::insertWarehouse($amount,$date,$product_id);
+		var_dump($respuesta);
 		if($respuesta){
-			return true;
+			return $respuesta;
 		}else{
 			return false;
 		}

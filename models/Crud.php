@@ -4,8 +4,24 @@
 
 class Datos extends Connections{
 
-	public function insertWarehouse($amount){
-		$query = "INSERT INTO Warehouse()"
+	public function insertWarehouse($amount,$date,$product_id){
+		$query = "INSERT INTO warehouse(amount,created,product_id) values(:amount,:date,:product_id)";
+		$conn = Connections::connect();
+		$stmt = $conn->prepare($query);
+		try{
+			$conn->beginTransaction();
+			$stmt->bindParam(':amount',$amount,PDO::PARAM_STR);
+			$stmt->bindParam(':date',$date,PDO::PARAM_STR);
+			$stmt->bindParam(':product_id',$product_id,PDO::PARAM_INT);
+			$stmt->execute();
+			$contenido= $conn->lastInsertId();
+			$conn->commit();
+			return $contenido;
+			$conn->close();
+		}catch(PDOException $e){
+			$conn->rollBack();
+		}
+
 	}
 
 	public function deleteProductById($id){
