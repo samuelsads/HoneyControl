@@ -4,16 +4,36 @@
 
 class Datos extends Connections{
 
+	public function updateClient($idClient,$name,$father_surname,$mother_surname){
+		$query = "UPDATE Client SET name=:name, father_surname=:father_surname,mother_surname=:mother_surname WHERE idClient=:idClient";
+		$conn  = Connections::connect();
+		$stmt = $conn->prepare($query);
+		try{
+			$conn->beginTransaction();
+			$stmt->bindParam(':name',$name,PDO::PARAM_STR);
+			$stmt->bindParam(':father_surname',$father_surname,PDO::PARAM_STR);
+			$stmt->bindParam(':mother_surname',$mother_surname,PDO::PARAM_STR);
+			$stmt->bindParam(':idClient',$idClient,PDO::PARAM_INT);
+			$result = $stmt->execute();
+			$conn->commit();
+			return $result;
+			$conn->close();
+		}catch(PDOException $e){
+			$conn->rollBack();
+		}
+
+	}
+
 	public function insertWarehouse($amount,$date,$product_id){
-		$query = "INSERT INTO warehouse(amount,created,product_id) values(:amount,:date,:product_id)";
+		$query = "INSERT INTO Warehouse(amount,created,product_id) values(:amount,:created,:product_id)";
 		$conn = Connections::connect();
 		$stmt = $conn->prepare($query);
 		try{
 			$conn->beginTransaction();
 			$stmt->bindParam(':amount',$amount,PDO::PARAM_STR);
-			$stmt->bindParam(':date',$date,PDO::PARAM_STR);
+			$stmt->bindParam(':created',$date,PDO::PARAM_STR);
 			$stmt->bindParam(':product_id',$product_id,PDO::PARAM_INT);
-			$stmt->execute();
+			$result = $stmt->execute();
 			$contenido= $conn->lastInsertId();
 			$conn->commit();
 			return $contenido;
@@ -80,7 +100,7 @@ class Datos extends Connections{
 	}
 
 	public function findAllMyClients(){
-		$query  = 'SELECT idClient,concat(name," ",father_surname," ",mother_surname) as Name FROM Client order by idClient desc';
+		$query  = 'SELECT * FROM Client order by idClient desc';
 		$stmt = Connections::connect()->prepare($query);
 		$stmt->execute();
 		return $stmt->fetchAll();

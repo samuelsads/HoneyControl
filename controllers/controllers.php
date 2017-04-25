@@ -1,15 +1,22 @@
 <?php 
 require_once "../../models/Constants.php";
-require_once "/logic.php";
+require_once "logic.php";
 
 class controllers{
 	
+	public function getUpdateClient($idClient,$name,$father_surname,$mother_surname){
+		$result = Datos::updateClient($idClient,$name,$father_surname,$mother_surname);
+		if($result){
+			return true;
+		}else{
+			return false;
+		}
+	}	
 
 	public function insertNewWarehouse($amount,$product_id){
 		$logic  = new logic();
 		$date = $logic->getDate();
 		$respuesta = Datos::insertWarehouse($amount,$date,$product_id);
-		var_dump($respuesta);
 		if($respuesta){
 			return $respuesta;
 		}else{
@@ -65,7 +72,7 @@ class controllers{
 		$content =  array();
 		if($respuesta){
 			foreach ($respuesta as $key) {
-				$content[]= array('id'=>$key['idClient'],'name'=>$key['Name']);
+				$content[]= array('id'=>$key['idClient'],'name'=>$key['Name'],'father_surname'=>$key['father_surname'],'mother_surname'=>$key['mother_surname']);
 			}
 			return $content;
 		}else{
