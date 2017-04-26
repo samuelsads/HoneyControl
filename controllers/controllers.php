@@ -4,6 +4,19 @@ require_once "logic.php";
 
 class controllers{
 	
+	public function getAllMyWarehouse(){
+		$result = Datos::getAllMyWarehouse();
+		$content  = array();
+		if($result){
+			foreach ($result as $key) {
+				$content[]= array('id'=>$key['idAlmacen'],'amount'=>$key['amount'],'created'=>$key['created'],'product_id' =>$key['product_id']);
+			}
+			return $content;
+		}else{
+			return false;
+		}
+	}
+
 	public function getUpdateClient($idClient,$name,$father_surname,$mother_surname){
 		$result = Datos::updateClient($idClient,$name,$father_surname,$mother_surname);
 		if($result){

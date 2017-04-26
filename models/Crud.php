@@ -4,6 +4,14 @@
 
 class Datos extends Connections{
 
+	public function getAllMyWarehouse(){
+		$query = "SELECT * FROM  Warehouse";
+		$stmt = Connections::connect()->prepare($query);
+		$stmt->execute();
+		return $stmt->fetchAll();
+		$stmt->close();
+	}
+
 	public function updateClient($idClient,$name,$father_surname,$mother_surname){
 		$query = "UPDATE Client SET name=:name, father_surname=:father_surname,mother_surname=:mother_surname WHERE idClient=:idClient";
 		$conn  = Connections::connect();
@@ -15,6 +23,7 @@ class Datos extends Connections{
 			$stmt->bindParam(':mother_surname',$mother_surname,PDO::PARAM_STR);
 			$stmt->bindParam(':idClient',$idClient,PDO::PARAM_INT);
 			$result = $stmt->execute();
+			var_dump($result);
 			$conn->commit();
 			return $result;
 			$conn->close();
