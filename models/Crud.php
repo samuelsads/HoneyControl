@@ -23,7 +23,6 @@ class Datos extends Connections{
 			$stmt->bindParam(':mother_surname',$mother_surname,PDO::PARAM_STR);
 			$stmt->bindParam(':idClient',$idClient,PDO::PARAM_INT);
 			$result = $stmt->execute();
-			var_dump($result);
 			$conn->commit();
 			return $result;
 			$conn->close();

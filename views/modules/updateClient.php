@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
 		if($contra == $responde ->getPass($id)){
 			$respuesta =$responde->getUpdateClient($idClient,$name,$father_surname,$mother_surname);
 				if($respuesta){
-					$respuesta = json_encode(array('respuesta'=>$respuesta,'success'=>true));
+					$respuesta = json_encode(array('respuesta'=>$respuesta));
 					echo $respuesta;
 				}else{
 					echo 'error';
